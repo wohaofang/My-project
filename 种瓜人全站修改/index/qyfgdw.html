@@ -1,0 +1,499 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>企业风格定位</title>
+<link href="../css/home2.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../js/jquery1.42.min.js"></script>
+<script type="text/javascript" src="../js/jquery.SuperSlide.2.1.1.js"></script>
+
+<script src="../js/jquery.carouFredSel-6.0.4-packed.js" type="text/javascript"></script>
+<script type="text/javascript">
+			$(function() {
+
+				var scrollDuration = 400;
+				var scrollEasing = 'quadratic';
+
+				//	small images carousel
+				$('#carousel-small').carouFredSel({
+					direction: 'up',
+					width: 300,
+					height: 200,
+					items: {
+						visible: 1,
+						width: 300,
+						height: 200
+					},
+					align: false,
+					pagination: '#navi',
+					scroll: {
+						fx: 'directscroll',
+						duration: scrollDuration,
+						timeoutDuration: 1500,
+						easing: scrollEasing,
+						onBefore: function( data ) {
+							data.items.old.animate({
+								'margin-right': -100
+							}, scrollDuration, scrollEasing);
+
+							data.items.visible.css({
+								'margin-right': 100
+							}).animate({
+								'margin-right': 10
+							}, scrollDuration, scrollEasing);
+
+
+							var index = $(this).triggerHandler( 'currentPosition' );
+							if ( index == 0 ) {
+								index = $(this).children().length;
+							}
+
+							//	trigger the titles carousel
+							$('#carousel-title').trigger('slideTo', [ index, 'next' ]);
+
+							//	trigger the large images carousel
+							$('#carousel-large').trigger('slideTo', [ index, 'prev' ]);
+						}
+					}
+				});
+
+				//	large images carousel, controlled by the small images carousel
+				$('#carousel-large').carouFredSel({
+					direction: 'down',
+					width: 400,
+					height: 300,
+					items: {
+						visible: 1,
+						width: 400,
+						height: 300
+					},
+					align: false,
+					auto: false,
+					scroll: {
+						fx: 'directscroll',
+						duration: scrollDuration,
+						easing: scrollEasing,
+						onBefore: function( data ) {
+							data.items.old.animate({
+								'margin-left': -140
+							}, scrollDuration, scrollEasing);
+
+							data.items.visible.css({
+								'margin-left': 160
+							}).animate({
+								'margin-left': 10
+							}, scrollDuration, scrollEasing);
+						}
+					}
+				});
+
+				//	titles carousel, controlled by the small images carousel
+				$('#carousel-title').carouFredSel({
+					width: 350,
+					height: 100,
+					items: {
+						visible: 1,
+						width: 350,
+						height: 100
+					},
+					align: false,
+					auto: false,
+					scroll: {
+						fx: 'directscroll',
+						duration: scrollDuration,
+						easing: scrollEasing
+					}
+				});
+
+				//	tweek the pagination to always scroll forward
+				$('#navi a')
+					.unbind( 'click' )
+					.bind( 'click', function( event ) {
+						event.preventDefault();
+						$('#carousel-small').trigger( 'slideTo', [$(this).index(), true, 'next'] );
+					}
+				);
+			});
+		</script>
+<style>
+.sz,.sy{ color:#FFF; line-height:48px; font-size:18px;}
+.liea p{height:48px; background:#f6af09; line-height:48px;}
+.nav a{ line-height:40px;}
+#img04{ font-size:18px; font-weight:bold; color:#007f27; padding-bottom:30px;}
+ #img03{ background-image:url(../images/g02.png); background-position:13px; background-repeat:no-repeat; margin-top:350px;}
+ 			html, body {
+				height: 100%;
+				padding: 0;
+				margin: 0;
+			}
+			body {
+				min-height: 500px;
+				background-color: #fff;
+			}
+			body * {
+				font-family: Arial, Geneva, SunSans-Regular, sans-serif;
+				font-size: 14px;
+				color: #333;
+				line-height: 22px;
+			}
+			#chamfer{ position:relative;}
+			#wrapper {
+				width: 600px;
+				height: 320px;
+				margin: -160px 0 0 -400px;
+				position: absolute;
+				left:65%; margin-top:0px;
+				overflow: hidden;
+			}
+			
+			#carousel-title {
+				width: 350px;
+				height: 100px;
+				position: absolute;
+				top: 0;
+				left: 0;
+			}
+			#carousel-title p {
+				font-family: arial, helvetica, sans-serif;
+				font-size: 30px;
+				font-weight: bold;
+				color: #999;
+				width: 325px;
+				height: 75px;
+				margin: 0;
+				padding: 25px 0 0 25px;
+				float: left;
+			}
+			#carousel-small,
+			#carousel-large {
+				position: absolute;
+			}
+			#carousel-small {
+				width: 300px;
+				height: 220px;
+				bottom: 0;
+				left: 0;
+			}
+			#carousel-large {
+				width: 600px;
+				height: 300px;
+				top: 0;
+				right: 0;
+			}
+			#carousel-large img {
+				display: block;
+				margin-left: 10px;
+				float: left;
+			}
+			#carousel-small img {
+				display: block;
+				margin-right: 10px;
+				float: right;
+			}
+			#navi {
+				position: absolute;
+				bottom: 0;
+				right: 0;
+			}
+			#navi a {
+				border: 1px solid #999;
+				background-color: #fff;
+				display: block;
+				width: 8px;
+				height: 8px;
+				margin: 0 0 0 4px;
+				float: left;
+			}
+			#navi a:hover {
+				background-color: #ccc;
+			}
+			#navi a.selected {
+				background-color: #999;
+			}
+			#navi a span {
+				display: none;
+			}
+			.slicer {
+				position: absolute;
+				top: 0;
+				left: 155px;
+			}
+			
+			#donate-spacer {
+				height: 100%;
+			}
+			#donate {
+				border-top: 1px solid #999;
+				width: 750px;
+				padding: 50px 75px;
+				margin: 0 auto;
+				overflow: hidden;
+			}
+			#donate p, #donate form {
+				margin: 0;
+				float: left;
+			}
+			#donate p {
+				width: 650px;
+			}
+			#donate form {
+				width: 100px;
+			}
+</style>
+</head>
+
+<body>
+<div class="header">
+<div class="wp">
+	<div class="logo"><a href=""><img src="../images/logo.png"></a></div>
+    <div class="hyou">
+    <ul>
+    	<li><a>登陆</a></li>
+        <li><a>注册</a></li>
+    </ul>
+    </div>
+</div>
+</div>
+<ul id="nav" class="nav clearfix" style="padding-left:200px;">
+
+
+            
+			<li class="nLi">
+				<h3><a href="index.html" target="_blank">首页</a></h3>
+			</li>
+			<li class="nLi">
+					<h3><a href="gywm.html" target="_blank">关于我们</a></h3>
+					<ul class="sub">
+						<li><a href="ppjs.html" target="_self">品牌介绍</a></li>
+						<li><a href="zzwh.html" target="_self">组织文化</a></li>
+						<li><a href="qywh.html" target="_self">企业文化</a></li>
+						<li><a href="ppwh.html" target="_self">品牌文化</a></li>
+						<li><a href="gywm.html" target="_self">LOGO含义</a></li>
+                        <li><a href="dtxw.html" target="_self">动态新闻</a></li>
+					
+					</ul>
+			</li>
+			<li class="nLi">
+
+
+			<!-- 假设当前频道为“预告片”，手动或后台程序添加titOnClassName类名（默认是'on'），相当于设置参数defaultIndex:1。若同时设置参数returnDefault:true，则鼠标移走后0.3秒返回当前频道 -->
+					<h3><a href="nykj.html" target="_blank">农业科技</a></h3>
+					<ul class="sub">
+						<li><a href="nykj.html" target="_self">公司简介</a></li>
+						<li><a href="cpzs.html" target="_self">产品展示</a></li>
+						<li><a href="ywdt.html" target="_self">业务动态</a></li>
+					</ul>
+			</li>
+			<li class="nLi">
+					<h3><a href="glzx.html" target="_blank">管理咨询</a></h3>
+					<ul class="sub">
+						<li><a href="qygcyzd.html" target="_self">企业观察诊断</a></li>
+						<li><a href="zzjgsl.html" target="_self">组织架构梳理</a></li>
+						<li><a href="dgdb.html" target="_self">定岗定编</a></li>
+						<li><a href="qygw.html" target="_self">企业顾问</a></li>
+						<li><a href="glzx.html" target="_self">总裁私教</a></li>
+						<li><a href="yxzl.html"target="_self">营销战略</a></li>
+                        <li><a href="glzdzz.html" target="_self">管理制度再造</a></li>
+					</ul>
+			</li>
+            <li class="nLi">
+					<h3><a href="sxy.html" target="_blank">商学院</a></h3>
+					<ul class="sub">
+						<li><a href="sxy.html" target="_self">总裁班</a></li>
+						<li><a href="zxlxl.html" target="_self">执行力系列</a></li>
+						<li><a href="gpzxly.html" target="_self">高品质训练营</a></li>
+						<li><a href="smdl.html" target="_self">生命动力</a></li>
+						<li><a href="zldz.html" target="_self">中流砥柱</a></li>
+						<li><a href="cyxdzy.html" target="_self">从优秀到卓越</a></li>
+                        <li><a href="yxxl.html" target="_self">营销系列</a></li>
+					</ul>
+			</li>
+            <li class="nLi">
+					<h3><a href="yscm.html" target="_blank">影视传媒</a></h3>
+					<ul class="sub">
+						<li><a href="qyxcp.html" target="_self">企业宣传片</a></li>
+						<li><a href="hyjlp.html" target="_self">会议记录片</a></li>
+						<li><a href="qz.html" target="_self">亲子</a></li>
+						<li><a href="jt.html" target="_self">家庭</a></li>
+						<li><a href="hq.html" target="_self">婚庆</a></li>
+						<li><a href="hd.html" target="_self">活动</a></li>
+                        <li><a href="cyxcp.html" target="_self">产业宣传片</a></li>
+					</ul>
+			</li>
+            <li class="nLi on">
+					<h3><a href="wlkj.html" target="_blank">创意设计</a></h3>
+					<ul class="sub fen">
+						<li><a href="ppmm.html" target="_self">品牌命名</a></li>
+						<li><a href="sbzc.html" target="_self">商标注册</a></li>
+						<li><a href="xchb.html" target="_self">宣传海报</a></li>
+						<li><a href="bzsj.html" target="_self">包装设计</a></li>
+						<li><a href="LOGOsj.html" target="_self">LOGO设计</a></li>
+						<li><a href="xccsj.html" target="_self">宣传册设计</a></li>
+                        <li><a href="gszc.html" target="_self">工商注册</a></li>
+                        <li><a href="qyfgdw.html" target="_self">企业风格定位</a></li>
+						<li><a href="ppdw.html" target="_self">品牌定位</a></li>
+						<li><a href="VIsj.html" target="_self">VI设计</a></li>
+						<li><a href="wzsj.html" target="_self">网站设计</a></li>
+						<li><a href="APPsj.html" target="_self">APP设计</a></li>
+					</ul>
+                    </li>
+            <li class="nLi ">
+					<h3><a href="http://xn--fiq33n9zbt5cu71csz3c.xn--czru2d/" target="_blank">天然食品商城</a></h3>
+					
+			</li>
+			<li class="nLi">
+					<h3><a href="lianxi.html" target="_blank">联系我们</a></h3>
+					<ul class="sub">
+						<li><a href="jiameng.html" target="_self">加盟我们</a></li>
+						<li><a href="zsrx.html" target="_self">招商热线</a></li>
+						<li><a href="zbmm.html" target="_self">招兵买马</a></li>
+					
+				</ul>
+			</li>
+         
+		</ul>
+		
+
+		<div class="" style=" width:auto; height:0px;">
+			
+		</div>
+
+		<script id="jsID" type="text/javascript">
+			
+			jQuery("#nav").slide({ 
+				type:"menu",// 效果类型，针对菜单/导航而引入的参数（默认slide）
+				titCell:".nLi", //鼠标触发对象
+				targetCell:".sub", //titCell里面包含的要显示/消失的对象
+				effect:"slideDown", //targetCell下拉效果
+				delayTime:300 , //效果时间
+				triggerTime:0, //鼠标延迟触发时间（默认150）
+				returnDefault:true //鼠标移走后返回默认状态，例如默认频道是“预告片”，鼠标移走后会返回“预告片”（默认false）
+			});
+		</script>
+
+
+<script type="text/javascript"></script>
+ 
+<div class="banner6"></div>
+
+
+<div class="wp">
+<div class="main1">
+	<div class="maina">
+    
+        <div class="liea"><p>创意设计</p></div>
+        	
+        
+        <div class="lieb">
+    		<ul>
+    		
+       			<li><a href="ppmm.html" target="_self"><img src="../images/tubiao.jpg" class="img1"/><img src="../images/tubiao_07.jpg" class="img2" /><p>品牌命名</p></a></li>
+        		<li><a href="sbzc.html" target="_self"><img src="../images/tubiao.jpg" class="img1"/><img src="../images/tubiao_07.jpg" class="img2" /><p>商标注册</p></a></li>
+        		<li><a href="xchb.html" target="_self"><img src="../images/tubiao.jpg" class="img1"/><img src="../images/tubiao_07.jpg" class="img2" /><p>宣传海报</p></a></li>
+                <li><a href="bzsj.html" target="_self"><img src="../images/tubiao.jpg" class="img1"/><img src="../images/tubiao_07.jpg" class="img2" /><p>包装设计</p></a></li>
+        		<li><a href="LOGOsj.html" target="_self"><img src="../images/tubiao.jpg" class="img1"/><img src="../images/tubiao_07.jpg" class="img2" /><p>LOGO设计</p></a></li>
+                <li><a href="xccsj.html" target="_self"><img src="../images/tubiao.jpg" class="img1"/><img src="../images/tubiao_07.jpg" class="img2" /><p>宣传册设计</p></a></li>
+        		<li><a href="gszc.html" target="_self"><img src="../images/tubiao.jpg" class="img1"/><img src="../images/tubiao_07.jpg" class="img2" /><p>工商注册</p></a></li>
+        		<li><a href="qyfgdw.html" target="_self"><img src="../images/tubiao.jpg" /><p style="color:#048d3d; font-weight:bold;">企业风格定位</p></a></li>
+                <li><a href="ppdw.html" target="_self"><img src="../images/tubiao.jpg" class="img1"/><img src="../images/tubiao_07.jpg" class="img2" /><p>品牌定位</p></a></li>
+        		<li><a href="VIsj.html" target="_self"><img src="../images/tubiao.jpg" class="img1"/><img src="../images/tubiao_07.jpg" class="img2" /><p>VI设计</p></a></li>
+                <li><a href="wzsj.html" target="_self"><img src="../images/tubiao.jpg" class="img1"/><img src="../images/tubiao_07.jpg" class="img2" /><p>网站设计</p></a></li>
+                <li><a href="APPsj.html" target="_self"><img src="../images/tubiao.jpg" class="img1"/><img src="../images/tubiao_07.jpg" class="img2" /><p>APP设计</p></a></li>
+               
+                
+       			
+     		</ul>
+    	</div>
+    	
+    </div>
+  
+</div>
+    <div class="maind">
+    	<div class="ds">
+        	<div class="sz">企业风格定位</div>
+        	<div class="sy">创意设计-企业风格定位</div>	
+        </div>
+        <div class="dx-dl">
+        <ul style="height:auto;">
+        	<li><center><img src="../images/qyfgdw01.png"></center></li>
+            <li>企业风格定位是战略管理中极为重要的环节,其起着承前启后的枢纽作用.定位分析为战略决策提供了大量决策信息,定位则需要综合各项信息确定企业战略及相关方案.实施则是更详细地分解展开各项战略部署,实现战略决策意图和目标.</li>
+              <div id="chamfer">            
+            <div id="wrapper">
+			<div id="carousel-large">
+              
+				<img src="../images/c01.png" width="400" height="300" border="0" />
+				<img src="../images/c02.png" width="400" height="300" border="0" />
+				<img src="../images/c03.png" width="400" height="300" border="0" />
+				<img src="../images/c04.png" width="400" height="300" border="0" />
+			</div>
+			<img class="slicer" src="../images/slicer-title.png" width="198" height="400" border="0" />
+			<div id="carousel-small">
+				<img src="../images/c001.png" width="300" height="200" border="0" />
+				<img src="../images/c002.png" width="300" height="200" border="0" />
+				<img src="../images/c003.png" width="300" height="200" border="0" />
+				<img src="../images/c004.png" width="300" height="200" border="0" />
+			</div>
+			<div id="carousel-title">
+				<p>设计Website类</p>
+				<p>汽车领先Website类</p>
+				<p>演唱Website类</p>
+				<p>服装Website类</p>
+				
+			</div>
+			<div id="navi"></div>
+			<img class="slicer" src="../images/slicer.png" width="208" height="400" border="0" />
+		</div>       
+        </div>
+          
+        
+        
+            <li id="img03"><span>企业风格定位的原则</span></li>
+        	<li style="line-height:14px">1、风格的统一性.</li>  
+            <li style="line-height:14px">2、视觉冲击.</li>   
+            <li style="line-height:14px">3、人性化.</li>   
+            <li style="line-height:14px">4、民族特色.</li>   
+            <li style="line-height:14px">5、可实施性.</li>   
+            <li style="line-height:14px">6、符合审美规律.</li>   
+            <li style="line-height:14px">7、严格管理.</li>          
+            <li style="font-weight:bold">风格定位是种战略目标,确定了企业用什么产品服务于哪类客户,风格定位必然涉及目标与当前现状的关系.对新生企业而言,风格定位是全新的,不受原有定位的影响.对成型企业而言,风格定位涉及目标市场范围与当前市场范围的关系,涉及目标产品门类与当前产品门类的关系,其定位风格要权衡的因素就要复杂的多.</li>
+          <li id="img04">欢迎各界人士咨询，咨询热线：0351-7072715</li>  
+
+        </ul>
+       
+        
+        </div>
+    
+    </div>
+</div>    
+
+
+
+<div class="footer">
+<div class="wp">
+	<div class="footz">
+	<ul>
+		<li><img src="../images/ditu_06.png" /></li>
+   		<li><img src="../images/ditu_03.jpg" /></li>
+    
+	</ul>
+	</div>
+	<div class="footy">
+    <ul>
+    	<li><p>客服热线<br><a><span>0351-7072715</span></a></p></li>
+    
+    	<li><p>全国热线<br><a><span>18634320003</span></a></p></li>
+    </ul>
+    </div>
+
+</div>
+</div>
+<div class="footx">
+ <p>Copyright ©2016山西种瓜人文化传媒有限公司<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1260626520'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s4.cnzz.com/z_stat.php%3Fid%3D1260626520%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script></p>
+
+</div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"0","bdPos":"right","bdTop":"250"},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+<script type="text/javascript" left="90%" bottom="20%" text="返回顶部" src="http://github.atool.org/x-return-top.min.js"></script>
+</body>
+</html>
+
